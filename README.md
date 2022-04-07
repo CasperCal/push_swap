@@ -10,7 +10,7 @@ to do list:
  -Sorting: WIP
  <3: most efficient
  <6: Acceptable
- >6: Way too slow
+ \>6: Way too slow
  -exit/free all places
  -checker
  
