@@ -12,96 +12,101 @@
 
 #include "push_swap.h"
 
-void	sb(l_list *a)
+void	sb(t_list *a)
 {
-		int 	store;
-		l_list 	*next;
+	int		store;
+	t_list	*next;
 
-		next = a->next;
-		store = a->i;
-		a->i = next->i;
-		next->i = store;
-		write(1, "sb\n", 3);
+	next = a->next;
+	store = a->i;
+	a->i = next->i;
+	next->i = store;
+	write(1, "sb\n", 3);
 }
 
-void	pb(l_list **a, l_list **b)
+void	set_tob(t_list *to, t_list *tmp, t_list **b)
 {
-    static l_list  *tmp;
-    static l_list  *to;
-    static l_list  *from;
+	if (!to)
+	{
+		to = tmp;
+		to->next = NULL;
+		to->prev = NULL;
+		*b = to;
+	}
+	else
+	{
+		tmp->next = to;
+		tmp->prev = NULL;
+		to->prev = tmp;
+		*b = tmp;
+	}
+}
 
-    to = *b;
-    from = *a;
-    if(!from)
-        return;
-    tmp = from;
-    if (!(from->next))
-        from = NULL;
-    else
-    {
-        from = from->next;
-        from->prev = NULL;
-    }
-    *a = from;
-    if(!to)
-    {
-        to = tmp;
-        to->next = NULL;
-        to->prev = NULL;
-        *b = to;
-    }
-    else
-    {
-        tmp->next = to;
-        tmp->prev = NULL;
-        to->prev = tmp;
-        *b = tmp;
-    }
+void	pb(t_list **a, t_list **b)
+{
+	static t_list	*tmp;
+	static t_list	*to;
+	static t_list	*from;
+
+	to = *b;
+	from = *a;
+	if (!from)
+		return ;
+	tmp = from;
+	if (!(from->next))
+		from = NULL;
+	else
+	{
+		from = from->next;
+		from->prev = NULL;
+	}
+	*a = from;
+	set_tob(to, tmp, b);
 	write(1, "pb\n", 3);
 }
 
-void rb(l_list **a)
+void	rb(t_list **a)
 {
-	l_list  *first;
-    l_list  *last;
-    l_list  *stack;
+	t_list	*first;
+	t_list	*last;
+	t_list	*stack;
 
-    stack = *a;
-    if(!(stack && stack->next))
-        return;
-    first = stack;
-    stack = stack->next;
-    last = stack;
-    while(last->next)
-    {
-        last = last->next;
-    }
+	stack = *a;
+	if (!(stack && stack->next))
+		return ;
+	first = stack;
+	stack = stack->next;
+	last = stack;
+	while (last->next)
+	{
+		last = last->next;
+	}
 	last->next = first;
-    first->next = NULL;
-    first->prev = last;
-    stack->prev = NULL;
-    *a = stack;
+	first->next = NULL;
+	first->prev = last;
+	stack->prev = NULL;
+	*a = stack;
 	write(1, "rb\n", 3);
 }
 
-void rrb(l_list **a)
+void	rrb(t_list **a)
 {
-	l_list 	*stack;
-    l_list  *first;
-    l_list  *last;
+	t_list	*stack;
+	t_list	*first;
+	t_list	*last;
 
-    first = *a;
-    if(!(first && first->next))
-        return;
-    stack = first;
-    while(stack->next->next)
-        stack = stack->next;
-    last = stack;
-    stack = stack->next;
-    stack->prev = NULL;
-    stack->next = first;
-    first->prev = stack;
-    last->next = NULL;
-    *a = stack;
-    write(1,"rrb\n", 4);
+	first = *a;
+	if (!(first && first->next))
+		return ;
+	stack = first;
+	while (stack->next->next)
+		stack = stack->next;
+	last = stack;
+	stack = stack->next;
+	stack->prev = NULL;
+	stack->next = first;
+	first->prev = stack;
+	last->next = NULL;
+	*a = stack;
+	write(1, "rrb\n", 4);
 }

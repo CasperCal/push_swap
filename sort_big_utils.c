@@ -12,44 +12,61 @@
 
 #include "push_swap.h"
 
+int	*str_to_arr(char **argv)
+{
+	int	i;
+	int	len;
+	int	*array;
+
+	i = 0;
+	len = (count_words(argv[1], ' '));
+	argv = ft_split(argv[1], ' ');
+	if (!argv)
+		exit(1);
+	array = malloc(sizeof(int) * len);
+	if (!array)
+		exit(1);
+	while (i < len)
+	{
+		array[i] = ft_check_atoi(argv[i]);
+		i++;
+	}
+	free(argv);
+	return (array);
+}
+
 int	*store_array(int argc, char **argv)
 {
-	int i;
-	int j;
-	int *array;
-	int len;
+	int	i;
+	int	j;
+	int	*array;
 
 	i = 0;
 	j = 1;
 	array = malloc(sizeof(int) * (argc));
 	if (!array)
-		exit(1);
+		return (NULL);
 	if (argc == 2)
 	{
-		len = (count_words(argv[1], ' '));
-		argv = ft_split(argv[1], ' ');
-		if (!argv)
-			exit(1);
-		while (i < len)
+		array = str_to_arr(argv);
+		return (array);
+	}
+	else
+	{
+		while (j < argc)
 		{
-			array[i] = ft_check_atoi(argv[i]);
+			array[i] = ft_check_atoi(argv[j]);
+			j++;
 			i++;
 		}
 		return (array);
 	}
-	while (j < argc)
-	{
-		array[i] = ft_check_atoi(argv[j]);
-		j++;
-		i++;
-	}
-	return (array);
 }
 
-void add_index(l_list **stack_a, int *sorted)
+void	add_index(t_list **stack_a, int *sorted)
 {
-	l_list	*node;
-	int i;
+	t_list	*node;
+	int		i;
 
 	node = *stack_a;
 	while (node)
@@ -67,9 +84,9 @@ void add_index(l_list **stack_a, int *sorted)
 	}
 }
 
-static int ft_max_bits(l_list **stack)
+static int	ft_max_bits(t_list **stack)
 {
-	l_list	*head;
+	t_list	*head;
 	int		max;
 	int		max_bits;
 
@@ -87,10 +104,10 @@ static int ft_max_bits(l_list **stack)
 	return (max_bits);
 }
 
-void ft_radix_sort(l_list **stack_a, l_list **stack_b)
+void	ft_radix_sort(t_list **stack_a, t_list **stack_b)
 {
-	l_list	*head_a;
-	int 	i;
+	t_list	*head_a;
+	int		i;
 	int		j;
 	int		size;
 	int		max_bits;

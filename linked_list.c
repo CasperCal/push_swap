@@ -12,86 +12,90 @@
 
 #include "push_swap.h"
 
-
-//something breaks in free
-/*static void  lst_free(l_list **list)
+void	lst_free(t_list **list)
 {
-    l_list *swap;
-    while (list && *list)
-    {
-        swap = (*list)->next;
-        free(*list);
-        *list = swap;
-    }
-}*/
+	t_list	*node;
 
-l_list  *lst_newnode(char *integ)
-{
-    l_list *node;
-
-    node = malloc(sizeof(l_list));
-    if (!node)
-        return(NULL);
-    node->i = ft_check_atoi(integ);
-    node->index = -1;
-    node->next = NULL;
-    node->prev = NULL;
-    return (node);
+	node = *list;
+	while (node)
+	{
+		node = (*list)->next;
+		free(*list);
+		*list = node;
+	}
 }
 
-int	list_len(l_list *stack)
+t_list	*lst_newnode(char *integ)
 {
-	l_list *tmp;
-    int len;
+	t_list	*node;
 
-    tmp = stack;
-    len = 0;
-	 while (tmp)
-	 {
+	node = malloc(sizeof(t_list));
+	if (!node)
+		return (NULL);
+	node->i = ft_check_atoi(integ);
+	node->index = -1;
+	node->next = NULL;
+	node->prev = NULL;
+	return (node);
+}
+
+int	list_len(t_list *stack)
+{
+	t_list	*tmp;
+	int		len;
+
+	tmp = stack;
+	len = 0;
+	while (tmp)
+	{
 		len++;
 		tmp = tmp->next;
-	 }
-	 return(len);
+	}
+	return (len);
 }
 
-/*static void  lst_addfront(l_list *node, l_list **list)
+void	lst_addback(t_list *newNode, t_list **head)
 {
-    if (list && node)
-    {
-        node->next = *list;
-        node->prev = NULL;
-        if (*list)
-            (*list)->prev = node;
-        *list = node;
-    }
-}*/
+	t_list	*last;
 
-void  lst_addback(l_list *newNode, l_list **head)
-{
-    l_list *last = *head;
-    if(*head == NULL)
-    {
-        newNode->prev=NULL;
-        *head = newNode;
-        return;
-    }
-    while(last->next)
-    {
-        last = last->next;
-    }
-    last->next = newNode;
-    newNode->prev = last;
-    return;
+	last = *head;
+	if (*head == NULL)
+	{
+		newNode->prev = NULL;
+		*head = newNode;
+		return ;
+	}
+	while (last->next)
+	{
+		last = last->next;
+	}
+	last->next = newNode;
+	newNode->prev = last;
+	return ;
 }
 
-l_list  *ls_find_head(l_list *list)
+int	find_min_node(t_list *stack)
 {
-    l_list  *head;
+	int		min;
+	t_list	*tmp;
+	int		index;
 
-    head = list;
-    while (head->prev)
-    {
-        head = head->prev;
-    }
-    return (head);
+	min = INT_MAX;
+	index = 0;
+	tmp = stack;
+	while (tmp)
+	{
+		if (tmp->i < min)
+			min = tmp->i;
+		tmp = tmp->next;
+	}
+	tmp = stack;
+	while (tmp)
+	{
+		index++;
+		if (tmp->i == min)
+			return (index);
+		tmp = tmp->next;
+	}
+	return (0);
 }

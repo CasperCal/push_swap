@@ -12,141 +12,101 @@
 
 #include "push_swap.h"
 
-void ft_sort3(l_list *a)
+void	ft_sort3(t_list *a)
 {
-    l_list *node1;
-    l_list *node2;
-    l_list *node3;
-    
-    node1 = a;
-    node2 = a->next;
-    node3 = node2->next;
-    if (node2->i < node1->i && node1->i < node3->i && node2->i < node3->i)
-        sa(a);
-    if (node1->i < node2->i && node1->i > node3->i && node2->i > node3->i)
-        rra(&a);
-    if (node1->i > node2->i && node1->i > node3->i && node2->i < node3->i)
-        ra(&a);
-    if (node1->i < node2->i && node1->i < node3->i && node2->i > node3->i)
-    {
-        rra(&a);
-        sa(a);
-    }
-    if (node1->i > node2->i && node1->i > node3->i && node2->i > node3->i)
-    {
-        ra(&a);
-        sa(a);
-    }
+	t_list	*node1;
+	t_list	*node2;
+	t_list	*node3;
+
+	node1 = a;
+	node2 = a->next;
+	node3 = node2->next;
+	if (node2->i < node1->i && node1->i < node3->i && node2->i < node3->i)
+		sa(a);
+	if (node1->i < node2->i && node1->i > node3->i && node2->i > node3->i)
+		rra(&a);
+	if (node1->i > node2->i && node1->i > node3->i && node2->i < node3->i)
+		ra(&a);
+	if (node1->i < node2->i && node1->i < node3->i && node2->i > node3->i)
+	{
+		rra(&a);
+		sa(a);
+	}
+	if (node1->i > node2->i && node1->i > node3->i && node2->i > node3->i)
+	{
+		ra(&a);
+		sa(a);
+	}
 }
 
-int    find_min_node(l_list *stack)
+void	ft_small_sort(t_list *a, int size)
 {
-    int     min;
-    l_list  *tmp;
-    int     index;
+	t_list	*node1;
+	t_list	*node2;
 
-    min = INT_MAX;
-    index = 0;
-    tmp = stack;
-    while (tmp)
-    {
-        if (tmp->i < min)
-            min = tmp->i;
-        tmp = tmp->next;
-    }
-    tmp = stack;
-    while (tmp)
-    {
-        index++;
-        if (tmp->i == min)
-            return(index);
-        tmp = tmp->next;
-    }
-    return(0);
+	node1 = a;
+	node2 = a->next;
+	if (size == 2)
+		return ;
+	if (size == 3)
+	{
+		if (node1->i > node2->i)
+		{
+			sa(a);
+			return ;
+		}
+		else
+			return ;
+	}
+	if (size == 4)
+	{
+		ft_sort3(a);
+	}
 }
 
-void ft_small_sort(l_list *a, int size)
+static void	min_top(t_list **a, int index, int i)
 {
-    l_list  *node1 = a;
-    l_list  *node2 = a->next;
+	int	rep;
 
-    if (size == 2)
-        return;
-    if (size == 3)
-    {
-        if (node1->i > node2->i)
-        {
-            sa(a);
-            return;
-        }
-        else
-            return;
-    }
-    if (size == 4)
-    {
-        ft_sort3(a);
-    }
+	rep = index - 1;
+	while (i < rep)
+	{
+		ra(a);
+		i++;
+	}
 }
 
-int ft_average(l_list *list)
+static void	min_bot(t_list **a, int index, int i, int len)
 {
-    int c;
-    int sum;
-    l_list  *tmp;
+	int	rep;
 
-    c = 0;
-    sum = 0;
-    tmp = list;
-
-    while (tmp->next)
-    {
-        sum += tmp->i;
-        c++;
-        tmp = tmp->next;
-    }
-    return(sum / c);
+	rep = len - index + 1;
+	while (i < rep)
+	{
+		rra(a);
+		i++;
+	}
 }
 
-void ft_medium_sort(l_list *a, l_list *b, int sizea)
+void	ft_medium_sort(t_list *a, t_list *b, int sizea)
 {
-    int len;
-    int index;
-    int rep;
-    int i;
+	int	len;
+	int	index;
+	int	i;
 
-    while (sizea > 4)
-    {
-        index = find_min_node(a);
-        len = list_len(a);
-        
-        if (index <= ((len / 2) + 1))
-        {
-            rep = index - 1;
-            i = 0;
-            while (i < rep)
-            {
-                ra(&a);
-                i++;
-            }
-            pb(&a, &b);
-            sizea--;
-        }
-        if (index > ((len / 2) + 1))
-        {
-            rep = len - index + 1;
-            i = 0;
-            while (i < rep)
-            {
-                rra(&a);
-                i++;
-            }
-            pb(&a, &b);
-            sizea--;
-        }
-    }
-    ft_sort3(a);
-    while (b)
-    {
-        pa(&b, &a);
-    }
+	while (sizea > 4)
+	{
+		index = find_min_node(a);
+		len = list_len(a);
+		i = 0;
+		if (index <= ((len / 2) + 1))
+			min_top(&a, index, i);
+		if (index > ((len / 2) + 1))
+			min_bot(&a, index, i, len);
+		pb(&a, &b);
+		sizea--;
+	}
+	ft_sort3(a);
+	while (b)
+		pa(&b, &a);
 }
