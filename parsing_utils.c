@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-void	ft_check_int(int n, unsigned long long res)
+void	ft_check_int(int n, int res)
 {
 	if (n == 1 && res > INT_MAX)
 	{

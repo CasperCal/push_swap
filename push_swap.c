@@ -107,8 +107,8 @@ int	main(int argc, char **argv)
 	stack_b = NULL;
 	if (ft_check_sort(stack_a) == 1)
 	{
-		lst_free(stack_a);
 		free(sorted);
+		lst_free(&stack_a);
 		return (1);
 	}
 	ft_pick_sort(stack_a, stack_b, sorted, argc);
