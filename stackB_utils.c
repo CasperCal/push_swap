@@ -17,10 +17,13 @@ void	sb(t_list *a)
 	int		store;
 	t_list	*next;
 
-	next = a->next;
-	store = a->i;
-	a->i = next->i;
-	next->i = store;
+	if (a && a->next)
+	{
+		next = a->next;
+		store = a->i;
+		a->i = next->i;
+		next->i = store;
+	}
 	write(1, "sb\n", 3);
 }
 

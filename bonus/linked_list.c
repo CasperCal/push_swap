@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "checker.h"
 
 void	lst_free(t_list **list)
 {
@@ -39,7 +39,6 @@ t_list	*lst_newnode(char *integ, t_list **stack)
 	node->i = ft_check_atoi_l(integ, node, stack);
 	node->index = -1;
 	node->next = NULL;
-	node->prev = NULL;
 	return (node);
 }
 
@@ -65,7 +64,6 @@ void	lst_addback(t_list *newNode, t_list **head)
 	last = *head;
 	if (*head == NULL)
 	{
-		newNode->prev = NULL;
 		*head = newNode;
 		return ;
 	}
@@ -74,7 +72,6 @@ void	lst_addback(t_list *newNode, t_list **head)
 		last = last->next;
 	}
 	last->next = newNode;
-	newNode->prev = last;
 	return ;
 }
 

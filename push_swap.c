@@ -17,7 +17,7 @@ int	ft_check_sort(t_list *list)
 	t_list	*tmp;
 
 	tmp = list;
-	while (tmp->next)
+	while (tmp && tmp->next)
 	{
 		if (tmp->i > tmp->next->i)
 			return (0);
@@ -32,7 +32,7 @@ t_list	*create_list(char **argv, t_list *stack_a, int i)
 
 	while (argv[i])
 	{
-		node = lst_newnode(argv[i++]);
+		node = lst_newnode(argv[i++], &stack_a);
 		if (!node)
 		{
 			lst_free(&stack_a);
@@ -54,7 +54,6 @@ t_list	*ft_parse(int argc, char **argv)
 	stack_a = NULL;
 	if (argc <= 1)
 	{
-		write(1, "Error\n", 6);
 		exit(1);
 	}
 	if (argc == 2)
@@ -100,13 +99,20 @@ int	main(int argc, char **argv)
 	static t_list	*stack_b;
 	int				*sorted;
 
-	sorted = store_array(argc, argv);
+	if (argc <= 1)
+		return (0);
 	stack_a = ft_parse(argc, argv);
+	sorted = store_array(argc, argv);
 	if (argc == 2)
+		if (ft_strcmp(argv[1], "\0") == 0)
+		{
+			write(1, "Error\n", 6);
+			exit(1);
+		}
 		argc = (count_words(argv[1], ' ') + 1);
-	stack_b = NULL;
 	if (ft_check_sort(stack_a) == 1)
 	{
+		stack_b = NULL;
 		free(sorted);
 		lst_free(&stack_a);
 		return (1);

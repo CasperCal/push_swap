@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   stackA_utils.c                                     :+:      :+:    :+:   */
+/*   stackB_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ccaluwe <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/04 14:58:34 by ccaluwe           #+#    #+#             */
-/*   Updated: 2022/04/04 15:52:32 by ccaluwe          ###   ########.fr       */
+/*   Created: 2022/04/04 15:52:17 by ccaluwe           #+#    #+#             */
+/*   Updated: 2022/04/04 16:00:35 by ccaluwe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "checker.h"
 
-void	sa(t_list *a)
+void	sb(t_list *a)
 {
 	int		store;
 	t_list	*next;
@@ -24,35 +24,34 @@ void	sa(t_list *a)
 		a->i = next->i;
 		next->i = store;
 	}
-	write(1, "sa\n", 3);
 }
 
-void	set_toa(t_list *to, t_list *tmp, t_list **a)
+void	set_tob(t_list *to, t_list *tmp, t_list **b)
 {
 	if (!to)
 	{
 		to = tmp;
 		to->next = NULL;
 		to->prev = NULL;
-		*a = to;
+		*b = to;
 	}
 	else
 	{
 		tmp->next = to;
 		tmp->prev = NULL;
 		to->prev = tmp;
-		*a = tmp;
+		*b = tmp;
 	}
 }
 
-void	pa(t_list **b, t_list **a)
+void	pb(t_list **a, t_list **b)
 {
 	static t_list	*tmp;
 	static t_list	*to;
 	static t_list	*from;
 
-	to = *a;
-	from = *b;
+	to = *b;
+	from = *a;
 	if (!from)
 		return ;
 	tmp = from;
@@ -63,12 +62,11 @@ void	pa(t_list **b, t_list **a)
 		from = from->next;
 		from->prev = NULL;
 	}
-	*b = from;
-	set_toa(to, tmp, a);
-	write(1, "pa\n", 3);
+	*a = from;
+	set_tob(to, tmp, b);
 }
 
-void	ra(t_list **a)
+void	rb(t_list **a)
 {
 	t_list	*first;
 	t_list	*last;
@@ -89,10 +87,9 @@ void	ra(t_list **a)
 	first->prev = last;
 	stack->prev = NULL;
 	*a = stack;
-	write(1, "ra\n", 3);
 }
 
-void	rra(t_list **a)
+void	rrb(t_list **a)
 {
 	t_list	*stack;
 	t_list	*first;
@@ -111,5 +108,4 @@ void	rra(t_list **a)
 	first->prev = stack;
 	last->next = NULL;
 	*a = stack;
-	write(1, "rra\n", 4);
 }

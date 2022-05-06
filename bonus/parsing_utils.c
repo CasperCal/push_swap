@@ -10,7 +10,19 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "checker.h"
+
+size_t	ft_strlen(const char *str)
+{
+	int	c;
+
+	c = 0;
+	while (str[c] != '\0')
+	{
+		c++;
+	}
+	return (c);
+}
 
 void	ft_check_int(int n, unsigned long long int res)
 {
@@ -53,28 +65,6 @@ int	ft_check_atoi(char *str)
 	return (res * n);
 }
 
-int	ft_strcmp(char *s1, char *s2)
-{
-	size_t	i;
-
-	i = 0;
-	if (!s1 || !s2)
-		return (0);
-	while (s1[i] || s2[i])
-	{
-		if (s1[i] == s2[i])
-			i++;
-		else
-		{
-			if (s1[i] > s2[i])
-				return (1);
-			else
-				return (-1);
-		}
-	}
-	return (0);
-}
-
 char	*ft_strdup(const char *s1)
 {
 	char	*s2;
@@ -110,7 +100,7 @@ void	ft_check_dupli(char **str)
 		{
 			if (j == i)
 				j++;
-			else if ((!ft_strcmp(cmp, str[j])) || (!ft_strcmp(cmp, "\0")))
+			else if (ft_strcmp(cmp, str[j]) == 0)
 			{
 				free(cmp);
 				write(1, "Error\n", 6);

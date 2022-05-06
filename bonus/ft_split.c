@@ -10,13 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
-
-int	error_exit(void)
-{
-	write(1, "Error\n", 6);
-	exit(1);
-}
+#include "checker.h"
 
 /*Allocates (with malloc(3)) and returns an array
  of strings obtained by splitting ’s’ using the

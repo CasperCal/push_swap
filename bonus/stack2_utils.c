@@ -1,58 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   big_sort.c                                         :+:      :+:    :+:   */
+/*   stack2_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ccaluwe <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/27 10:24:57 by ccaluwe           #+#    #+#             */
-/*   Updated: 2022/04/27 10:25:00 by ccaluwe          ###   ########.fr       */
+/*   Created: 2022/05/05 13:22:00 by ccaluwe           #+#    #+#             */
+/*   Updated: 2022/05/05 13:22:19 by ccaluwe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "checker.h"
 
-size_t	ft_strlen(const char *str)
+int	ft_strcmp(const char *s1, const char *s2)
 {
-	int	c;
+	unsigned char	*z1;
+	unsigned char	*z2;
 
-	c = 0;
-	while (str[c] != '\0')
+	z1 = (unsigned char *)s1;
+	z2 = (unsigned char *)s2;
+	if (*z1 == '\0')
+		return (-(*z2));
+	if (*z2 == '\0')
+		return (*z1);
+	while (*z1 != '\0' || *z2 != '\0')
 	{
-		c++;
+		if (*z1 != *z2)
+			return (*z1 - *z2);
+		z1++;
+		z2++;
 	}
-	return (c);
-}
-
-static void	sort_array(int *array, int n)
-{
-	int		i;
-	int		j;
-	int		temp;
-
-	i = 0;
-	while (i < n - 1)
-	{
-		j = i + 1;
-		while (j < n)
-		{
-			if (array[i] > array[j])
-			{
-				temp = array[i];
-				array[i] = array[j];
-				array[j] = temp;
-			}
-			j++;
-		}
-		i++;
-	}
-}
-
-void	ft_big_sort(t_list **stack_a, t_list **stack_b, int *sorted, int size_a)
-{
-	sort_array(sorted, size_a - 1);
-	add_index(stack_a, sorted);
-	ft_radix_sort(stack_a, stack_b);
+	return (0);
 }
 
 int	ft_check_atoi_l(char *str, t_list *node, t_list **stack)
@@ -82,4 +60,22 @@ int	ft_check_atoi_l(char *str, t_list *node, t_list **stack)
 	}
 	ft_check_int(n, res);
 	return (res * n);
+}
+
+void	ss(t_list *stack_a, t_list *stack_b)
+{
+	sa(stack_a);
+	sb(stack_b);
+}
+
+void	rr(t_list **stack_a, t_list **stack_b)
+{
+	ra(stack_a);
+	rb(stack_b);
+}
+
+void	rrr(t_list **stack_a, t_list **stack_b)
+{
+	rra(stack_a);
+	rrb(stack_b);
 }

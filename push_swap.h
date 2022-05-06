@@ -28,17 +28,21 @@ typedef struct s_list
 
 // Input parsing/ verification
 int		ft_check_atoi(char *str);
+int		ft_check_atoi_l(char *str, t_list *node, t_list **stack);
 void	ft_check_dupli(char **str);
+void	ft_check_int(int n, unsigned long long int res);
+int		ft_strcmp(char *s1, char *s2);
 int		count_words(const char *str, char c);
 char	**ft_split(char const *s, char c);
 int		ft_check_sort(t_list *list);
 void	print_list(t_list *stack, char stackname);
 t_list	*ft_parse(int argc, char **argv);
 size_t	ft_strlen(const char *str);
+int		error_exit(void);
 
 //t_list toolbox
 void	lst_free(t_list **list);
-t_list	*lst_newnode(char *integ);
+t_list	*lst_newnode(char *integ, t_list **stack);
 void	lst_addback(t_list *newNode, t_list **head);
 int		list_len(t_list *stack);
 int		find_min_node(t_list *stack);

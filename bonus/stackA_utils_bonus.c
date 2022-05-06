@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "checker.h"
 
 void	sa(t_list *a)
 {
@@ -24,7 +24,6 @@ void	sa(t_list *a)
 		a->i = next->i;
 		next->i = store;
 	}
-	write(1, "sa\n", 3);
 }
 
 void	set_toa(t_list *to, t_list *tmp, t_list **a)
@@ -65,7 +64,6 @@ void	pa(t_list **b, t_list **a)
 	}
 	*b = from;
 	set_toa(to, tmp, a);
-	write(1, "pa\n", 3);
 }
 
 void	ra(t_list **a)
@@ -89,7 +87,6 @@ void	ra(t_list **a)
 	first->prev = last;
 	stack->prev = NULL;
 	*a = stack;
-	write(1, "ra\n", 3);
 }
 
 void	rra(t_list **a)
@@ -111,5 +108,4 @@ void	rra(t_list **a)
 	first->prev = stack;
 	last->next = NULL;
 	*a = stack;
-	write(1, "rra\n", 4);
 }
