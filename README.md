@@ -14,6 +14,10 @@ You can compile the push swap program with make, remove the objects with clean a
 
 The list of integers can either be entered as different arguments or a string in which the different integers are seperated by spaces (1 or more).
 
+# Norme
+
+Code was written in a style to be in accordance with the [normev3](https://github.com/42School/norminette) rules.
+
 # Approach
 
 To solve this problem there are a few steps I decided to take.
